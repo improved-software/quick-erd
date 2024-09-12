@@ -32,6 +32,63 @@ npm start
 node web-ui
 ```
 
+### Custom Schema
+```
+# Visualize on https://erd.surge.sh
+# or https://quick-erd.surge.sh
+#
+# Relationship Types
+#  -    - one to one
+#  -<   - one to many
+#  >-   - many to one
+#  >-<  - many to many
+#  -0   - one to zero or one
+#  0-   - zero or one to one
+#  0-0  - zero or one to zero or one
+#  -0<  - one to zero or many
+#  >0-  - zero or many to one
+#
+////////////////////////////////////
+
+
+users
+----
+id bigInt PK
+username varchar(64) unique
+email varchar(191)
+
+
+posts
+----
+id bigint PK
+author_id bigInt FK >- users.id
+content text
+status enum('active','pending')
+
+
+replies
+-----
+id bigint PK
+post_id bigint FK >0- posts.id
+commenter_id bigint FK >- users.id
+reply_id bigint NULL FK >0- replies.id
+content text
+likes integer
+
+
+# zoom: 1.000
+# view: (0, 0)
+# text-bg: #22a7fe
+# text-color: #121212
+# diagram-bg: #f1f1f1
+# diagram-text: #000000
+# table-bg: #ffffff
+# table-text: #2c3e50
+# users (742, 183)
+# posts (459, 157)
+# replies (591, 532)
+```
+
 ### npx cli
 
 generate incremental migration:
